@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Регенератор</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Регенератор характеристик</h1>
+      <label for="characteristics">Виберіть характеристику:</label
+      ><select name="characteristics" id="characteristics">
+        <option value="profession">Професія</option>
+        <option value="gender-age">Стать та Вік</option>
+        <option value="health">Стан Здоров'я</option>
+        <option value="phobia">Фобія</option>
+        <option value="hobby">Хобі</option>
+        <option value="baggage">Багаж</option>
+        <option value="fact">Факт</option>
+      </select>
+      <button onclick="generate()">Генерувати</button>
+      <p id="resultParagraph"></p>
+    </div>
+    <div class="additional-container">
+      <a href="https://fyoqusi.github.io/BunkerCard/" class="additional-button">
+        <span><i class="fa fa-user" aria-hidden="true"></i> </span>
+      </a>
+      <a href="https://fyoqusi.github.io/BunkerGame/" class="additional-button">
+        <span><i class="fa fa-home"></i></span>
+      </a>
+      <a href="" class="additional-button">
+        <span><i class="fa fa-refresh"></i></span>
+      </a>
+    </div>
+    <style>
+      body {
+        font-family: "CerebriSans-Regular", -apple-system, BlinkMacSystemFont,
+          "Roboto", sans-serif;
+        font-size: 18px;
+        text-align: center;
+        background-color: #f8f8f8;
+        color: black;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      span {
+        font-size: 30px;
+        font-weight: 600;
+      }
+      select,
+      button {
+        padding: 10px;
+        font-size: 16px;
+        margin: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+      .additional-container {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .additional-button {
+        background-color: #e7e7e7;
+        color: #000000;
+        border: none;
+        border-radius: 10px;
+        padding: 20px;
+        cursor: pointer;
+        flex: 1;
+        margin: 0 10px;
+        transition: background-color 0.3s ease;
+      }
+
+      .additional-button:hover {
+        background-color: #dfdfdf;
+      }
+    </style>
+    <script>
+      const professions = [
+        "Лікар-хірург",
+        "Інженер-механік",
+        "Вчитель фізкультури",
+        "Архітектор",
+        "Помічник кухаря",
+        "Пілот",
+        "Художник",
+        "Програміст",
+        "Медсестра",
+        "Фермер",
+        "Психолог",
+        "Снайпер",
+        "Пожежник",
+        "Астронавт",
+        "Дизайнер",
+        "Юрист",
+        "Музикант",
+        "Фотограф",
+        "Офіціант",
+        "Будівельник",
+        "Клоун",
+        "Актор театру",
+        "Нотаріус",
+        "Столяр",
+        "Безробітний",
+      ];
+      const healths = [
+        "Ідеальне здоров'я",
+        "Пневмонія",
+        "Алкоголізм",
+        "ВІЛ",
+        "Вітрянка",
+        "Амнезія",
+        "Грип",
+        "Застуда",
+        "Мігрень",
+        "Алергія на пил",
+        "Немає лівої ноги",
+        "Немає двох пальців на лівій руці",
+        "Депресія",
+        "Синдром Туретта",
+        "Ідеальне здоров'я",
+        "Астма",
+        "Цукровий діабет 1-го типу",
+        "Гіпертонія",
+        "Гастрит",
+        "Карлик",
+        "Грибок нігтів",
+      ];
+      const genders = ["Чоловік", "Жінка"];
+      const hobbies = [
+        "Малювання",
+        "Фотографування",
+        "Подорожі",
+        "Футбол",
+        "Грання на фортепіано",
+        "Готування",
+        "Гірські походи",
+        "Велоспорт",
+        "Читання книг",
+        "Настільні ігри",
+        "Танці",
+        "Риболовля",
+        "Виноробство",
+        "Театр",
+        "Волонтерство",
+        "Пошиття",
+        "Плавання",
+        "Колекціонування марок",
+        "Астрономія",
+        "Громадська робота",
+        "Колекціонування жуків",
+        "Сталкеринг",
+      ];
+      const facts = [
+        "Пограбував власного дідуся",
+        "Був у комі 4 роки",
+        "Може дотягнутися язиком до ліктя",
+        "Знає 5 мов",
+        "Залишався на другий рік в школі",
+        "Вегетаріанець",
+        "Може з'їсти цілий кавун за 10 хвилин",
+        "Має дві вищі освіти",
+        "Грає у водне поло",
+        "Співає в метро",
+        "Не має передніх зубів",
+        "Палить цигарки",
+        "Має чотирьох дітей",
+        "Вірить у всесвітню змову",
+        "Проходив курс воєнної підготовки",
+        "Пройшов похід 100 км",
+        "Отримав у спадок 1 мільйон доларів",
+        "Вміє грати на гітарі",
+        "Успішний блогер в Інстаграм",
+        "Практикується у віщуванні",
+        "Поцупив сирок з АТБ",
+        "Знається на народній медицині",
+      ];
+      const baggagelist = [
+        "Енциклопедія юного натураліста",
+        "Чіхуахуа",
+        "Компас",
+        "Ножиці",
+        "Карти",
+        "Молоток",
+        "Викрутка",
+        "Мультиінструмент",
+        "Насінинка пшениці",
+        "Телефон",
+        "Робот-пилосос",
+        "Шахи",
+        "Збірник 4500 анекдотів",
+        "Інструкція зі збирання крісла",
+        "Безлімітна картка",
+        "Турецький килим",
+        "Туалетний папір",
+        "Набір для в'язання",
+        "Парасолька",
+        "Ящик полуниці",
+        "Глобус",
+        "Лампочка",
+        "Подушка",
+        "Біблія",
+        "Фікус",
+        "Коробка патронів 5.56 мм",
+        "Лупа",
+        "Цегла",
+      ];
+      const phobias = [
+        "Клаустрофобія (страх перед замкненим простором)",
+        "Агорафобія (страх перед відкритим простором)",
+        "Гемофобія (страх крові)",
+        "Арахнофобія (страх павуків)",
+        "Ніктофобія (страх темряви, ночі)",
+        "Талассофобія (страх морських подорожей, моря)",
+        "Урофобія (страх захотіти в туалет в умовах, коли зробити це неможливо)",
+        "Кінофобія (страх собак)",
+        "Пеладофобія (страх лисих людей)",
+        "Аквафобія (страх води)",
+        "Арахнофобія (страх павуків)",
+        "Авіафобія (страх польоту або літаків)",
+        "Гідрофобія (страх води)",
+        "Офідофобія (страх змій)",
+        "Гермофобія (страх бруду або мікробів)",
+        "Акрофобія (страх висоти)",
+        "Некрофобія (страх смерті або трупів)",
+        "Еметофобія (страх блювання)",
+        "Ентомофобія (страх комах)",
+        "Клауновідна фобія (страх клоунів)",
+        "Термофобія (страх тепла або жару)",
+        "Технофобія (страх технологій)",
+        "Колібрифобія (страх колібрі)",
+        "Немає фобії",
+      ];
+      function getRandomElement(array) {
+        const randomIndex = Math.floor(Math.random() * array.length);
+        return array[randomIndex];
+      }
+      function generate() {
+        const input = document.getElementById("characteristics");
+        const resultParagraph = document.getElementById("resultParagraph");
+        if (input.value === "profession") {
+          const profession = getRandomElement(professions);
+          resultParagraph.textContent = profession;
+        }
+        if (input.value === "gender-age") {
+          const gender = getRandomElement(genders);
+          const age = Math.floor(Math.random() * 50) + 18;
+          const lastDigitAge = age % 10;
+          let ageYears;
+
+          if (lastDigitAge === 1) {
+            ageYears = "рік";
+          } else if (lastDigitAge >= 2 && lastDigitAge <= 4) {
+            ageYears = "роки";
+          } else {
+            ageYears = "років";
+          }
+          const output = gender + ", " + age + " " + ageYears;
+          resultParagraph.textContent = output;
+        }
+        if (input.value === "health") {
+          const health = getRandomElement(healths);
+          resultParagraph.textContent = health;
+        }
+        if (input.value === "phobia") {
+          const phobia = getRandomElement(phobias);
+          resultParagraph.textContent = phobia;
+        }
+        if (input.value === "hobby") {
+          const hobby = getRandomElement(hobbies);
+          resultParagraph.textContent = hobby;
+        }
+        if (input.value === "baggage") {
+          const baggage = getRandomElement(baggagelist);
+          resultParagraph.textContent = baggage;
+        }
+        if (input.value === "fact") {
+          const fact = getRandomElement(facts);
+          resultParagraph.textContent = fact;
+        }
+      }
+    </script>
+  </body>
+</html>
