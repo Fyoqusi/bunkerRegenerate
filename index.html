@@ -10,6 +10,16 @@
     />
   </head>
   <body>
+    <div class="language-buttons">
+      <a class="lang-btn" data-lang="en" href="indexen.html">
+        <img src="https://flagcdn.com/w40/us.png" alt="English" />
+        English
+      </a>
+      <a class="lang-btn" data-lang="uk" href="index.html">
+        <img src="https://flagcdn.com/w40/ua.png" alt="Українська" />
+        Українська
+      </a>
+    </div>
     <div class="container">
       <h1>Регенератор характеристик</h1>
       <label for="characteristics">Виберіть характеристику:</label
@@ -109,6 +119,44 @@
 
       .additional-button:hover {
         background-color: #dfdfdf;
+      }
+      .language-buttons {
+        display: flex;
+        gap: 15px;
+      }
+
+      .lang-btn {
+        color: #000000;
+        background-color: #fff;
+        border: 2px solid #007bff;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-decoration: none;
+      }
+
+      .lang-btn img {
+        width: 24px;
+        height: 24px;
+      }
+
+      .lang-btn:hover {
+        background-color: #007bff;
+        color: white;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .lang-btn:focus {
+        outline: none;
+        background-color: #0056b3;
+        color: white;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
       }
     </style>
     <script>
@@ -257,21 +305,6 @@
         "Коробка патронів 5.56 мм",
         "Цегла",
         "Отрута для мишей",
-      ];
-      const actioncards = [
-        "У цьому раунді ти не голосуєш, але голоси проти вибраного учасника подвоюються",
-        "Цього раунду проти тебе не можуть голосувати",
-        "Ти можеш обмінятися багажем з однією людиною",
-        "Ти можеш обмінятися здров'ям з однією людиною",
-        "Ти можеш обмінятися професією з однією людиною",
-        "Ти можеш обмінятися хобі з однією людиною",
-        "Ти можеш обмінятися фактом з однією людиною",
-        "Омолоди вибраного гравця на 15 років, якщо йому 33 і більше років (стаж віднімається також)",
-        "Дістань нову характеристику здоров'я з колоди для вибраного гравця",
-        "Дістань нову характеристику професії з колоди для вибраного гравця",
-        "Дістань нову характеристику хобі з колоди для вибраного гравця",
-        "Дістань нову характеристику факту з колоди для вибраного гравця",
-        "Наступного раунду примусь усіх гравців відкрити характеристику за твоїм бажанням",
       ];
       const phobias = [
         "Клаустрофобія (страх перед замкненим простором)",
